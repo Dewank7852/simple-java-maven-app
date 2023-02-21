@@ -21,6 +21,14 @@ pipeline {
                 }
             }
         }
+        stage ('Code Quality') {
+        steps {
+            withSonarQubeEnv('My_SonarQube') {
+            sh 'mvn -f MyWebApp/pom.xml sonar:sonar'
+            }
+      }
+    }
+    
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
